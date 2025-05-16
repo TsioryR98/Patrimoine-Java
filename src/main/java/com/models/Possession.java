@@ -13,5 +13,5 @@ public abstract sealed class Possession permits LivingExpense, FinancialProperty
     protected Cash cash;
     protected LocalDate propertyDateValue;
 
-
+    public abstract Possession getPropertyFutureValue(LocalDate calculationDate );
 }

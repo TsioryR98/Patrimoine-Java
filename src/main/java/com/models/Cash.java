@@ -11,4 +11,11 @@ import lombok.Setter;
 public class Cash {
     private Double balance;
     private Currencies currencies;
+
+    public static Cash ariary( double balance) {
+        return new Cash(balance, Currencies.ARIARY);
+    }
+    public static Cash euros( double balance) {
+        return new Cash(balance, Currencies.EUROS);
+    }
 }

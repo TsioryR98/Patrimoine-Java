@@ -13,13 +13,13 @@ public class PropertyItemTest {
     public void getPropertyFutureValue_Material_ok(){
         LocalDate calculationDate = LocalDate.of(2024,6,26);
 
-        PropertyItem ordinateur = new PropertyItem("ordinateur",
+        PropertyItem computer = new PropertyItem("ordinateur",
                 new Cash(2_000_000d, Currencies.ARIARY), LocalDate.of(2021,10,26),
                 10.0);
-        PropertyItem ordinateurFutureValue = ordinateur.getPropertyFutureValue(calculationDate);
+        PropertyItem computerFutureValue = computer.getPropertyFutureValue(calculationDate);
 
-        assertNotNull(ordinateurFutureValue.getCash().getBalance());
-        assertEquals(1_466_302d, ordinateurFutureValue.getCash().getBalance());
+        assertNotNull(computerFutureValue.getCash().getBalance());
+        assertEquals(1_466_302d, computerFutureValue.getCash().getBalance());
 
 
     }

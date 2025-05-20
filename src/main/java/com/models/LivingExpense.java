@@ -21,20 +21,24 @@ import static java.util.Calendar.MONTH;
         if (calculationDate.isAfter(propertyDateValue)) {
             return new LivingExpense(
                     assetName,
-                    new Cash(cash.getBalance(), cash.getCurrencies()),
+                    new Cash(0.0d, cash.getCurrencies()),
                     propertyDateValue,
                     operationDebitDate
                     );
         }
-        long passedMonths = MONTHS.between(propertyDateValue, calculationDate);
-        if (calculationDate.getDayOfMonth() >= operationDebitDate) {
-            return new LivingExpense(
-                    assetName,
-                    new Cash(cash.getBalance() * passedMonths, cash.getCurrencies()),
-                    propertyDateValue,
-                    operationDebitDate
-            );
-        }
-        return null;
+        //number of debit operations
+        long numberDebitOperation = propertyDateValue
+                .datesUntil((calculationDate.plusDays(1)))
+                // include the last day and propertyDateValue until calculation date
+                .filter( localDate -> localDate.getDayOfMonth() == operationDebitDate)
+                .count();
+        Cash livingExpenseCash = new Cash(cash.getBalance() * numberDebitOperation , cash.getCurrencies());
+
+        return new LivingExpense(
+                assetName,
+                livingExpenseCash,
+                propertyDateValue,
+                operationDebitDate
+        );
     }
 }

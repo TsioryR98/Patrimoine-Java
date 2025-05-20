@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static com.models.Cash.ariary;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -14,13 +15,11 @@ public class PropertyItemTest {
         LocalDate calculationDate = LocalDate.of(2024,6,26);
 
         PropertyItem computer = new PropertyItem("ordinateur",
-                new Cash(2_000_000d, Currencies.ARIARY), LocalDate.of(2021,10,26),
+                new Cash(2_000_000d , Currencies.ARIARY), LocalDate.of(2021,10,26),
                 10.0);
         PropertyItem computerFutureValue = computer.getPropertyFutureValue(calculationDate);
 
         assertNotNull(computerFutureValue.getCash().getBalance());
         assertEquals(1_466_302d, computerFutureValue.getCash().getBalance());
-
-
     }
 }

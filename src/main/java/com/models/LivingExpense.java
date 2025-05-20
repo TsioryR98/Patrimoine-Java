@@ -9,6 +9,7 @@ import static java.util.Calendar.MONTH;
 
 @Getter
  public final class LivingExpense extends Possession {
+    //private final CurrentAccount financeLivingExpense;
     private final int operationDebitDate; // first day of the month
 
     LivingExpense(String assetName, Cash cash, LocalDate propertyDateValue, int operationDebitDate) {

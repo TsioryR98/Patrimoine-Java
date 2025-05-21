@@ -18,4 +18,18 @@ public class Cash {
     public static Cash euros( double balance) {
         return new Cash(balance, Currencies.EUROS);
     }
+    public Cash toSum( Cash that ) {
+        return new Cash(this.getBalance() + that.getBalance(),
+                this.getCurrencies());
+    }
+    public Cash toSubtract( Cash that ) {
+        return new Cash(this.getBalance() - that.getBalance(),
+                this.getCurrencies());
+    }
+
+    public Cash toMultiply( double factor ) {
+        return new Cash(Math.ceil(this.getBalance() * factor),
+                this.getCurrencies());
+    }
+
 }

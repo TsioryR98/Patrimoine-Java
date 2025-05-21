@@ -23,9 +23,9 @@ public final class CurrentAccount extends FinancialProperty {
     @Override
     public CurrentAccount getPropertyFutureValue(LocalDate calculationDate) {
         //total of living expenses
-        Optional<Cash> total = livingExpenses.stream()
-                .map(livingExpense -> livingExpense.getPropertyFutureValue(calculationDate).cash)
-                .reduce(cash.getBalance()).orElse();
+        double total = livingExpenses.stream()
+                .map(livingExpense -> livingExpense.getPropertyFutureValue(calculationDate).cash.getBalance())
+                .reduce(Double::sum).orElse(0.0d);
 
         Cash totalOfLivingExpense = new Cash(total, this.getCash().getCurrencies());
 

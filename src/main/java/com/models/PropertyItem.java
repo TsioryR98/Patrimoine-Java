@@ -10,19 +10,16 @@ public final class PropertyItem extends Possession {
         this.depreciationRate = depreciationRate;
     }
 
-    public Double getUpdateValues (LocalDate calculateDate) {
-        double daysNumber = DAYS.between(propertyDateValue, calculateDate);
-        double valueAfterDepreciation = cash.getBalance() * depreciationRate/100 *(daysNumber / 365);
-        return Math.ceil(cash.getBalance() - valueAfterDepreciation);
-    }
-
     @Override
     public PropertyItem getPropertyFutureValue(LocalDate calculationDate) {
+        double daysNumber = DAYS.between(propertyDateValue, calculationDate);
+        Cash valueDepreciation = cash.toMultiply(depreciationRate/100);
+        Cash valueFuture = cash.toSubtract( valueDepreciation.toMultiply(daysNumber /365));
+
         return new PropertyItem(this.assetName,
-                new Cash(Math.ceil(this.getUpdateValues(calculationDate)),this.cash.getCurrencies()),
+                valueFuture,
                 calculationDate,
                 depreciationRate
                 );
     }
 }
-//calcul de amortissement par année

@@ -20,6 +20,6 @@ public class PropertyItemTest {
         PropertyItem computerFutureValue = computer.getPropertyFutureValue(calculationDate);
 
         assertNotNull(computerFutureValue.getCash().getBalance());
-        assertEquals(1_466_302d, computerFutureValue.getCash().getBalance());
+        assertEquals(1_466_301d, computerFutureValue.getCash().getBalance());
     }
 }

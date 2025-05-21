@@ -16,20 +16,14 @@ public final class SavingAccount extends FinancialProperty {
         super(assetName, cash, propertyDateValue);
     }
 
-    public Double getUpdateValues(LocalDate calculationDate) {
-        double months = (double) (Duration.between(this.dateOfOpening.atStartOfDay(), calculationDate.atStartOfDay()).toDays() / 30);
-        if (months < 0) {
-            throw new IllegalArgumentException(" calculationDate must be after dateOfOpening");
-        }
-        double interest = this.interestRate / 12; //per month
-        return this.cash.getBalance() * Math.pow(1 + interest, months);
-        //
-    }
-
     @Override
     public SavingAccount getPropertyFutureValue(LocalDate calculationDate) {
+        double months = (double) (Duration.between(this.dateOfOpening.atStartOfDay(), calculationDate.atStartOfDay()).toDays() / 30);
+        double interest = this.interestRate / 12; //per month
+        Cash savingAccountValue = cash.toMultiply(Math.pow(1 + interest, months));
+
         return new SavingAccount(this.assetName,
-                new Cash(this.getUpdateValues(calculationDate), this.cash.getCurrencies()),
+                savingAccountValue,
                 calculationDate);
     }
 }

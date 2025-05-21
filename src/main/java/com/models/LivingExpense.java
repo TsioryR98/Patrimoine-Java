@@ -9,11 +9,12 @@ import static java.util.Calendar.MONTH;
 
 @Getter
  public final class LivingExpense extends Possession {
-    //private final CurrentAccount financeLivingExpense;
+    private final CurrentAccount financeLivingExpense;
     private final int operationDebitDate; // first day of the month
 
-    LivingExpense(String assetName, Cash cash, LocalDate propertyDateValue, int operationDebitDate) {
+    LivingExpense(String assetName, Cash cash, LocalDate propertyDateValue, CurrentAccount financeLivingExpense, int operationDebitDate) {
         super(assetName, cash, propertyDateValue);
+        this.financeLivingExpense = financeLivingExpense;
         this.operationDebitDate = operationDebitDate;
     }
 
@@ -24,6 +25,7 @@ import static java.util.Calendar.MONTH;
                     assetName,
                     new Cash(0.0d, cash.getCurrencies()),
                     propertyDateValue,
+                    financeLivingExpense,
                     operationDebitDate
                     );
         }
@@ -33,12 +35,13 @@ import static java.util.Calendar.MONTH;
                 // include the last day and propertyDateValue until calculation date
                 .filter( localDate -> localDate.getDayOfMonth() == operationDebitDate)
                 .count();
-        Cash livingExpenseCash = new Cash(cash.getBalance() * numberDebitOperation , cash.getCurrencies());
+        Cash livingExpenseCash = cash.toMultiply(numberDebitOperation);
 
         return new LivingExpense(
                 assetName,
                 livingExpenseCash,
                 propertyDateValue,
+                financeLivingExpense,
                 operationDebitDate
         );
     }

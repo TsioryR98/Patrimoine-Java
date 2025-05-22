@@ -3,18 +3,14 @@ package com.models;
 import lombok.Getter;
 import java.time.LocalDate;
 
-import static java.time.temporal.ChronoUnit.DAYS;
-import static java.time.temporal.ChronoUnit.MONTHS;
-import static java.util.Calendar.MONTH;
-
 @Getter
  public final class LivingExpense extends Possession {
-    private final CurrentAccount financeLivingExpense;
+    private final CurrentAccount financier;
     private final int operationDebitDate; // first day of the month
 
-    LivingExpense(String assetName, Cash cash, LocalDate propertyDateValue, CurrentAccount financeLivingExpense, int operationDebitDate) {
+    LivingExpense(String assetName, Cash cash, LocalDate propertyDateValue, CurrentAccount financier, int operationDebitDate) {
         super(assetName, cash, propertyDateValue);
-        this.financeLivingExpense = financeLivingExpense;
+        this.financier = financier;
         this.operationDebitDate = operationDebitDate;
     }
 
@@ -25,7 +21,7 @@ import static java.util.Calendar.MONTH;
                     assetName,
                     new Cash(0.0d, cash.getCurrencies()),
                     propertyDateValue,
-                    financeLivingExpense,
+                    financier,
                     operationDebitDate
                     );
         }
@@ -41,7 +37,7 @@ import static java.util.Calendar.MONTH;
                 assetName,
                 livingExpenseCash,
                 propertyDateValue,
-                financeLivingExpense,
+                financier,
                 operationDebitDate
         );
     }

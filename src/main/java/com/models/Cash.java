@@ -31,5 +31,9 @@ public class Cash {
         return new Cash(Math.ceil(this.getBalance() * factor),
                 this.getCurrencies());
     }
+    public Cash toConvert( Currencies that ) {
+        return new Cash(this.getBalance() * this.getCurrencies().getValueInAriary() / that.getValueInAriary(),
+                that);
+    }
 
 }
